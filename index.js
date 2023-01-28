@@ -15,47 +15,80 @@
 // WHEN I click on the links in the Table of Contents
 // THEN I am taken to the corresponding section of the README
 
-const generate = require ('./utils/generateMarkdown');
-const inquirer = require('./node_modules/inquirer/lib/inquirer');
-let projectName;
-const questions = [
-{
-    type: 'input',
-    name: 'projectName',
-    message: 'What is the name of your project?',
-    default: 'no project here',
-},
-{
-    type:'list',
-    name: 'test',
-    message: 'choose one',
-    choices: ['a','b']
-}
-];
-inquirer
-  .prompt(questions)
-    .then((answers) => {
-    projectName = answers
-    console.log(projectName)
-    // Use user feedback for... whatever!!
-  })
-  .catch((error) => {
-    if (error.isTtyError) {
-      // Prompt couldn't be rendered in the current environment
-    } else {
-      // Something else went wrong
-    }
-  });
-// TODO: Create an array of questions for user input
+// const generateMarkdown = require('./utils/generateMarkdown');
+
 
 
 // TODO: Create a function to write README file
-function writeToFile(fileName, data) {}
+function writeToFile(data) {
+    const fs = require('fs/promises');
+    fs.writeFile("test.md", data).then (response => console.log('done'))
+}
 
 // TODO: Create a function to initialize app
-function init() {}
+function init() {
 
-// Function call to initialize app
-// init();
-// generate(questions)
+    const generate = require ('./utils/generateMarkdown');
+    const inquirer = require('./node_modules/inquirer/lib/inquirer');
+    const questions = [
+    {
+        type: 'input',
+        name: 'title',
+        message: 'What is the name of your project?',
+        default: 'no project here',
+    },
+    {
+        type:'lnput',
+        name: 'description',
+        message: 'Please describe your project',
+        default: 'I coded some stuff and boy was it fun',
+    },
+    {
+        type : 'confirm',
+        name : 'tableOfContents',
+        message : 'Would you like to include a table of contents?',
+        default : true,
+
+    },
+    {
+        type : 'confirm',
+        name : 'installation',
+        message : 'Would you like to include installation instructions?',
+        default : false,
+
+    },
+    {
+        type : 'confirm',
+        name : 'usage',
+        message : 'Would you like to include usage terms?',
+        default : false,
+
+    },
+    {
+        type : 'confirm',
+        name : 'license',
+        message : 'are you using an MIT (open source) license',
+        default : true,
+
+    },
+    ];
+    inquirer
+    .prompt(questions)
+        .then((answers) => {
+        console.log(answers)
+        writeToFile(generate(answers))
+        
+        // Use user feedback for... whatever!!
+    })
+    .catch((error) => {
+        if (error.isTtyError) {
+        // Prompt couldn't be rendered in the current environment
+        } else {
+        // Something else went wrong
+        }
+    });
+
+    }
+
+init();
  
