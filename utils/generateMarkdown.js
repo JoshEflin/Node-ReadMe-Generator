@@ -6,7 +6,7 @@ function renderLicenseBadge(license) {
     let badge =license.split(' ').join('_');
     return `![License](https://img.shields.io/badge/license-${badge}-blue?logo=github)`
   } else {
-    return "";
+    return "No license";
   }
 }
 
@@ -30,21 +30,16 @@ function renderLicenseSection(license) {
  
 function generateMarkdown(response) {
   console.log(response[0])
-console.log(response[1])
- let steps;
-  if (response[1]=== undefined) {
-    steps = 'there are no install steps';
-  }
-  else {
-    steps =response[1].steps; 
-  }
+  console.log(response[1])
+  let steps;
+    response[1]=== undefined ? steps = 'there are no install steps': steps =response[1].steps; 
+    
   return `
 # ${response[0].title}
 ${renderLicenseBadge(response[0].license)}
 
 ## Description
 ${response[0].description}
-${steps}
 
 ## Table of Contents
 ${renderLicenseLink(response[0].license)}
@@ -55,38 +50,27 @@ ${renderLicenseLink(response[0].license)}
 - [Contact](#contact)
 
 ## License
-
+${renderLicenseSection(response[0].license)}
  ## Installation
- ${response[0].installation}
+ ${steps}
 
  ## Usage
  ${response[0].usage}
 
+ ## Contributions
+ ${response[0].contributions}
+
+ ## Tests
+ ${response[0].tests}
+
+ ## Questions
+ https://github.com/${response[0].github}
+ ${response[0].email}
+
+ ## 
  
 `
-
 }
-
-
-// ## Usage
-
-// Provide instructions and examples for use. Include screenshots as needed.
-
-// To add a screenshot, create an assets/images folder in your repository and upload your screenshot to it. Then, using the relative filepath, add it to your README using the following syntax:
-
-
- 
-
-
-// 🏆 The previous sections are the bare minimum, and your project will ultimately determine the content of this document. You might also want to consider adding the following sections.
-
-// ## Badges
-
-// ![badmath](https://img.shields.io/github/languages/top/lernantino/badmath)
-
-// Badges aren't necessary, per se, but they demonstrate street cred. Badges let other developers know that you know what you're doing. Check out the badges hosted by [shields.io](https://shields.io/). You may not understand what they all represent now, but you will in time.
-
-
 
 module.exports = generateMarkdown;
 
