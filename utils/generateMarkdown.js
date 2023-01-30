@@ -29,10 +29,9 @@ function renderLicenseSection(license) {
 }
  
 function generateMarkdown(response) {
-  console.log(response[0])
-  console.log(response[1])
-  let steps;
-    response[1]=== undefined ? steps = 'there are no install steps': steps =response[1].steps; 
+  
+  console.log(response)
+  let steps= response[1]=== undefined ?  'there are no install steps':  response[1].steps; 
     
   return `
 # ${response[0].title}

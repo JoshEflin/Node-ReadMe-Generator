@@ -20,7 +20,7 @@
 // TODO: Create a function to write README file
 function writeToFile(data) {
     const fs = require('fs/promises');
-    fs.writeFile("test.md", data).then (response => console.log('done'))
+    fs.writeFile("testREADME.md", data).then (response => console.log('done'))
 }
 
 // TODO: Create a function to initialize app
@@ -38,7 +38,7 @@ function init() {
             }
           ).then((answers)=> {
            params.push(answers)
-           generate(params)
+           writeToFile(generate(params))
           }
         )}
         else {
