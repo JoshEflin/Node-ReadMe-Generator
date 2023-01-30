@@ -27,9 +27,23 @@ function writeToFile(data) {
 
 // TODO: Create a function to initialize app
 function init() {
-
+    const params = []
     const generate = require ('./utils/generateMarkdown');
     const inquirer = require('./node_modules/inquirer/lib/inquirer');
+    function install(response){
+        if (response === true){
+          inquirer.prompt(
+            {
+              type : 'input',
+              name : 'steps',
+              message: 'list your steps',
+            }
+          ).then((answers)=> {
+           params.push(answers)
+           writeToFile(generate(params))
+          }
+        )}
+       }
     const questions = [
     {
         type: 'input',
@@ -116,22 +130,21 @@ function init() {
 
     },
     ];
+    
     inquirer
     .prompt(questions)
         .then((answers) => {
-        console.log(answers)
-        writeToFile(generate(answers))
-        
+            params.push(answers) 
+            install(answers.installation)
         // Use user feedback for... whatever!!
     })
     .catch((error) => {
         if (error.isTtyError) {
-        // Prompt couldn't be rendered in the current environment
+        console.log(`Prompt couldn't be rendered in the current environment`)
         } else {
-        // Something else went wrong
+        console.log('try again')
         }
     });
-
     }
 
 init();
