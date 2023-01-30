@@ -15,6 +15,8 @@ function renderLicenseBadge(license) {
 function renderLicenseLink(license) {
   if (license !== "none (no license)"){
     return "";
+  } else{
+    return `- [License](#license)`
   }
 }
 // TODO: Create a function that returns the license section of README
@@ -27,21 +29,25 @@ function renderLicenseSection(license) {
 }
  
 function generateMarkdown(response) {
-  console.log(response)
-  if (response[2]=== null) {
-    let steps = 'there are no install steps'
+  console.log(response[0])
+console.log(response[1])
+ let steps;
+  if (response[1]=== undefined) {
+    steps = 'there are no install steps';
   }
   else {
-    let steps = response.installation 
+    steps =response[1].steps; 
   }
   return `
-# ${response.title}
+# ${response[0].title}
+${renderLicenseBadge(response[0].license)}
 
 ## Description
-${response.description}
+${response[0].description}
+${steps}
 
 ## Table of Contents
-- [License](#license)
+${renderLicenseLink(response[0].license)}
 - [Installation](#installation)
 - [Usage](#usage)
 - [Contribution](#contribution)
@@ -49,13 +55,12 @@ ${response.description}
 - [Contact](#contact)
 
 ## License
- ${renderLicenseBadge(response.license)}
 
  ## Installation
- ${steps}
+ ${response[0].installation}
 
  ## Usage
- ${response.usage}
+ ${response[0].usage}
 
  
 `
@@ -83,5 +88,5 @@ ${response.description}
 
 
 
-module.exports.generateMarkdown = generateMarkdown;
+module.exports = generateMarkdown;
 

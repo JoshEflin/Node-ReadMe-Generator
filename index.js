@@ -29,7 +29,7 @@ function writeToFile(data) {
 function init() {
     const params = []
     const generate = require ('./utils/generateMarkdown');
-    const inquirer = require('./node_modules/inquirer/lib/inquirer');
+    const inquirer = require('inquirer');
     function install(response){
         if (response === true){
           inquirer.prompt(
@@ -40,9 +40,13 @@ function init() {
             }
           ).then((answers)=> {
            params.push(answers)
-           writeToFile(generate(params))
+           generate(params)
           }
         )}
+        else {
+            console.log(params)
+            writeToFile(generate(params))
+        }
        }
     const questions = [
     {
@@ -60,8 +64,8 @@ function init() {
     {
         type : 'confirm',
         name : 'installation',
-        message : 'Would you like to include installation instructions?',
-        default : false,
+        message : 'Please list installation steps if there are any',
+        default : false
 
     },
     {
@@ -108,6 +112,8 @@ function init() {
                     "zLib License",
                     "none (no license)"],
 
+            default: 'none (no license)',
+
     },
     {
         type:'input',
@@ -117,7 +123,7 @@ function init() {
     },
     {
         type: 'input',
-        name: 'contributors',
+        name: 'contributions',
         message: 'How might others contribute to this Project? (No response will default to the contributor convenant',
         default: '[![Contributor Covenant](https://img.shields.io/badge/Contributor%20Covenant-2.1-4baaaa.svg)](code_of_conduct.md)'
 
@@ -129,14 +135,23 @@ function init() {
         default :''
 
     },
+    {
+        type: 'input',
+        name: 'github',
+        message: 'What is your Github username?',
+    },
+    {
+        type: 'input',
+        name: 'email',
+        message: 'What is your email address?',
+    },
     ];
     
     inquirer
     .prompt(questions)
-        .then((answers) => {
-            params.push(answers) 
+    .then((answers) => { 
+        params.push(answers)
             install(answers.installation)
-        // Use user feedback for... whatever!!
     })
     .catch((error) => {
         if (error.isTtyError) {
