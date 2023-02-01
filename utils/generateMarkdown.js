@@ -10,8 +10,7 @@ function renderLicenseBadge(license) {
   }
 }
 
-// TODO: Create a function that returns the license link
-// If there is no license, return an empty string
+// This function creates a license link in the README
 function renderLicenseLink(license) {
   if (license !== "none (no license)"){
     return "- [License](#license)";
@@ -19,8 +18,7 @@ function renderLicenseLink(license) {
     return ``
   }
 }
-// TODO: Create a function that returns the license section of README
-// If there is no license, return an empty string
+//This section renders the license section
 function renderLicenseSection(license) {
   if (license !== "none (no license)"){
 
@@ -76,6 +74,6 @@ ${renderLicenseSection(response[0].license)}
  
 `
 }
-
+// exports the GenerateMarkdown Function to index.js
 module.exports = generateMarkdown;
 

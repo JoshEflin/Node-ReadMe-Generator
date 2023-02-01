@@ -1,29 +1,11 @@
 
-// WHEN I am prompted for information about my application repository
-// THEN a high-quality, professional README.md is generated with the title of my project and sections entitled Description, Table of Contents, Installation, Usage, License, Contributing, Tests, and Questions
-
-// WHEN I enter a description, installation instructions, usage information, contribution guidelines, and test instructions
-// THEN this information is added to the sections of the README entitled Description, Installation, Usage, Contributing, and Tests
-// WHEN I choose a license for my application from a list of options
-// THEN a badge for that license is added near the top of the README and a notice is added to the section of the README entitled License that explains which license the application is covered under
-// WHEN I enter my GitHub username
-// THEN this is added to the section of the README entitled Questions, with a link to my GitHub profile
-// WHEN I enter my email address
-// THEN this is added to the section of the README entitled Questions, with instructions on how to reach me with additional questions
-// WHEN I click on the links in the Table of Contents
-// THEN I am taken to the corresponding section of the README
-
-// const generateMarkdown = require('./utils/generateMarkdown');
-
-
-
-// TODO: Create a function to write README file
+//this functions creates the sampe README
 function writeToFile(data) {
     const fs = require('fs/promises');
     fs.writeFile("testREADME.md", data).then(response => console.log('done'))
 }
 
-// TODO: Create a function to initialize app
+// all the code is wrapped in the init function to limit global variables
 function init() {
     const params = []
     const generate = require('./utils/generateMarkdown');
@@ -120,7 +102,7 @@ function init() {
             message: 'What is your email address?',
         },
     ];
-
+// if the user answers Yes to installation steps then this question is asked.
     function install(response) {
         if (response === true) {
             inquirer.prompt(
@@ -154,6 +136,6 @@ function init() {
             }
         });
 }
-
+// calls the init function which is the majority of this file
 init();
 
