@@ -14,9 +14,9 @@ function renderLicenseBadge(license) {
 // If there is no license, return an empty string
 function renderLicenseLink(license) {
   if (license !== "none (no license)"){
-    return "";
+    return "- [License](#license)";
   } else{
-    return `- [License](#license)`
+    return ``
   }
 }
 // TODO: Create a function that returns the license section of README
@@ -24,7 +24,8 @@ function renderLicenseLink(license) {
 function renderLicenseSection(license) {
   if (license !== "none (no license)"){
 
-    return "";
+    return ` This repository is licensed under
+    ${license}`;
   }
 }
  
@@ -44,9 +45,9 @@ ${response[0].description}
 ${renderLicenseLink(response[0].license)}
 - [Installation](#installation)
 - [Usage](#usage)
-- [Contribution](#contribution)
+- [Contributing](#contributing)
 - [Tests](#tests)
-- [Contact](#contact)
+- [Questions](#Questions)
 
 ## License
 ${renderLicenseSection(response[0].license)}
@@ -56,17 +57,22 @@ ${renderLicenseSection(response[0].license)}
  ## Usage
  ${response[0].usage}
 
- ## Contributions
+ ## Contributing
  ${response[0].contributions}
 
  ## Tests
  ${response[0].tests}
 
  ## Questions
- https://github.com/${response[0].github}
- ${response[0].email}
 
- ## 
+ Feel free to peruse my git hub profile here:
+ https://github.com/${response[0].github}
+
+ Or send an email to:
+ ${response[0].email}
+ with  any further questions.
+
+  
  
 `
 }
